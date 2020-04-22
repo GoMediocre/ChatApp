@@ -35,6 +35,13 @@
             <version>1.8</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+        </dependency>
+
     </dependencies>
 
     <groupId>org.example</groupId>
