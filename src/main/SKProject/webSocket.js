@@ -1,5 +1,5 @@
 
-        var webSocket =  new WebSocket('ws://localhost:8080/project_name/websocket');
+        var webSocket =  new WebSocket('ws://localhost:8080/chatApp/action');
 
         webSocket.onerror = function(event) {
             onError(event)
@@ -25,11 +25,13 @@
         }
 
         function onError(event) {
-            alert(event.data);
+            alert("Error");
+            //alert(event.data);
         }
 
         function send() {
-            var txt = document.getElementById('stmt').value;
+            var txt = document.getElementById('txtid').value;
+            console.log(txt);
             webSocket.send(txt);
             return false;
         }

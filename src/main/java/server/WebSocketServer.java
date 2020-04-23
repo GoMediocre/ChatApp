@@ -21,9 +21,11 @@ public class WebSocketServer {
       //https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/HomeWebsocket/WebsocketHome.html#
 
       /** Multiple Clint Communication */
+      
       @OnMessage
       public void onMessage(String message, Session session)
               throws IOException {
+    	  System.out.println("Hellow World");
             synchronized(clients){
                   // Iterate over the connected sessions
                   // and broadcast the received message
@@ -53,6 +55,7 @@ public class WebSocketServer {
 //            }
 //            count++;
 //      }
+      
       @OnOpen
       public void onOpen (Session session) {
             // Add session to the connected sessions set
