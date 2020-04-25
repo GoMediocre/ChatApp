@@ -1,38 +1,40 @@
+var socket = new WebSocket("ws://localhost:8080/Chat-Application/action");
+// var webSocket = ('ws://echo.websocket.org ');
+const messageWindow = document.getElementById("messages");
 
-        var socket = new WebSocket("ws://localhost:8080/action");
-        // var webSocket = ('ws://echo.websocket.org ');
+socket.onerror = function (event) {
+  onError(event);
+};
 
-        socket.onerror = function(event) {
-            onError(event)
-        };
+socket.onopen = function (event) {
+  onOpen(event);
+};
 
-        socket.onopen = function(event) {
-            onOpen(event)
-        };
+socket.onmessage = function (event) {
+  onMessage(event);
+};
 
-        socket.onmessage = function(event) {
-            onMessage(event)
-        };
+function onMessage(event) {
+    addMessageToWindow(`${event.data}`);
+    
+}
 
-        function onMessage(event) {
-            // document.getElementById('messages').innerHTML 
-            // += '<br />Received message: ' + event.data;
-        }
+function addMessageToWindow(message) {
+    messageWindow.innerHTML += `<div>${message}</div>`
+}
 
-        function onOpen(event) {
-            console.log("Hello World")
-            // document.getElementById('messages').innerHTML 
-            // = 'Connection established';
-        }
+function onOpen(event) {
+  console.log("Hello World");
+}
 
-        function onError(event) {
-            alert("Error");
-            //alert(event.data);
-        }
+function onError(event) {
+  alert("Error");
+}
 
-        function send() {
-            var txt = document.getElementById('txtid').value;
-            console.log(txt);
-            socket.send(txt);
-            return false;
-        }
+function send() {
+  var txt = document.getElementById("txtid").value;
+  console.log(txt);
+  socket.send(txt);
+  return false;
+}
+

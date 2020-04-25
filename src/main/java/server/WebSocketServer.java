@@ -2,10 +2,7 @@ package server;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +22,8 @@ public class WebSocketServer {
       @OnMessage
       public void onMessage(String message, Session session)
               throws IOException {
-    	  System.out.println("Hellow World");
+    	  System.out.println("Hello World");
+    	  System.out.println(session.toString());
             synchronized(clients){
                   // Iterate over the connected sessions
                   // and broadcast the received message

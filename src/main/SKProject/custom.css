@@ -1,80 +1,71 @@
-body{
-  font-family: 'Raleway', sans-serif;
-  background: #E9ECE9;
+body {
+  padding: 0px;
+  margin: 0px;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgb(10, 72, 130);
 }
-.comments-main{
-  background: #FFF;
+
+.chatcls {
+  background-color: #ffffff;
+  height: 500px;
+  margin-top: 5%;
+  margin-left: 10%;
+  width: 20%;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 6px;
 }
-.comment time, .comment:hover time,.icon-rocknroll, .like-count {
-  -webkit-transition: .25s opacity linear;
-  transition: .25s opacity linear;
-}
-.comments-main ul li{
-  list-style: none;
-}
-.comments .comment {
-  padding: 5px 10px;
-  background: #00AF90;
-}
-.comments .comment:hover time{
-  opacity: 1;
-}
-.comments .user-img img {
-  width: 50px;
-  height: 50px;
-}
-.comments .comment h4 {
-  display: inline-block;
-  font-size: 16px;
-}
-.comments .comment h4 a {
-  color: #404040;
-  text-decoration: none;
-}
-.comments .comment .icon-rocknroll {
-  color: #545454;
-  font-size: .85rem;
-}
-.comments .comment .icon-rocknroll:hover {
-  opacity: .5;
-}
-.comments .comment time,.comments .comment .like-count,.comments .comment .icon-rocknroll {
-  font-size: .75rem;
-  opacity: 0;
-}
-.comments .comment time, .comments .comment .like-count {
+
+
+::placeholder {
+  color: rgb(69, 69, 69);
   font-weight: 300;
+  padding-left: 10px;
 }
-.comments .comment p {
-  font-size: 13px;
+
+#txtid:focus {
+  outline: none !important;
+  border: 1px solid white;
 }
-.comments .comment p .reply {
-  color: #BFBFA8;
-  cursor: pointer;
+
+.txtid {
+  background-color: rgb(219, 219, 219);
+  border: black;
+  border-radius: 20px;
+  height: 7%;
+  width: 70%;
+  color: black;
+  padding-left:15px;
+  display: inline;
+  margin-top: 99%;
 }
-.comments .comment .active {
-  opacity: 1;
+
+.sbmt {
+  display: inline;
+  background-color: rgb(0, 140, 255);
+  color: white;
+  font-size: 15px;
+  border: 1px solid rgb(0, 76, 138);  
+  border-radius: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left:20px;
 }
-.icon-rocknroll {
-  background: none;
-  outline: none;
-  cursor: pointer;
-  margin: 0 .125rem 0 0;
+
+.sbmt:active {
+  display: inline;
+  background-color: rgb(0, 108, 217);
+  color: white;
+  font-size: 15px;
+  border: 1px solid rgb(0, 76, 138);  
+  border-radius: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left:20px;
 }
-.comments .comment:hover .icon-rocknroll,.comments .comment:hover .like-count {
-  opacity: 1;
-}
-.comment-box-main{
-  background: #CA1D5F;
-}
-@media (min-width: 320px) and (max-width: 480px){
-  .comments .comment h4 {
-    font-size: 12px;
-  }
-  .comments .comment p{
-    font-size: 11px;
-  }
-  .comment-box-main .send-btn button{
-    margin-left: 5px;
-  }
-}
+
