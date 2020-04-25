@@ -1,15 +1,16 @@
 
-        var webSocket =  new WebSocket('ws://localhost:8080/chatApp/action');
+        var socket = new WebSocket("ws://localhost:8080/action");
+        // var webSocket = ('ws://echo.websocket.org ');
 
-        webSocket.onerror = function(event) {
+        socket.onerror = function(event) {
             onError(event)
         };
 
-        webSocket.onopen = function(event) {
+        socket.onopen = function(event) {
             onOpen(event)
         };
 
-        webSocket.onmessage = function(event) {
+        socket.onmessage = function(event) {
             onMessage(event)
         };
 
@@ -32,6 +33,6 @@
         function send() {
             var txt = document.getElementById('txtid').value;
             console.log(txt);
-            webSocket.send(txt);
+            socket.send(txt);
             return false;
         }
