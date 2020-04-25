@@ -16,7 +16,6 @@
     function  startTimer() {
         var timer = 30;
         setInterval( function(){
-            console.log("Hello world");
             if(timer >= 0){
                 document.getElementById("tmr").innerHTML = timer--;
             }
