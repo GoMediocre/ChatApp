@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html style = "background-color : rgb(1, 14, 15)">
-    <head>
-            <title>chat</title>
-            <link rel = "stylesheet" href = "chatBox.css">
-            <script type = "text/javascript" src = "webSocket.js"></script>
-    </head>
+<html>
+  <head>
+    <title>Chat App</title>
+    <link rel="stylesheet" href="chatBox.css" />
+  </head>
 
-    <body>
-        <div class = "chatcls">
-                        <input type="text"  wrap="harSd" id  = "txtid" placeholder="Text Message ...." >
-                        <button onclick="send()" id = "sbmt"> SNDMSG  </button>
-        </div>
-    </body>
+  <body>
+    <div class="chatcls">
+        <div id="messages" class="messages"></div>
+      <input type="textarea" class="txtid" id="txtid" placeholder="Type a message"
+      />
+      <button onclick="send()" class="sbmt" id="sbmt">Send</button>
+    </div>
+    <script type="text/javascript" src="WebSocket.js"></script>
+  </body>
 </html>
