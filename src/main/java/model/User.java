@@ -1,7 +1,7 @@
 package model;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "user")
+@XmlRootElement
 public class User {
 
     private String name;

@@ -7,11 +7,44 @@
     function validateForm() {
         var uName = document.getElementById("txtuname").value;
         var email = document.getElementById("txtemail").value;
-        var gender = document.getElementsByName("gender").value;
+        var gender = document.getElementsByName("gender");
+        var gen;
+        for (var i = 0; i < gender.length; ++i) {
+            if (gender[i].checked){
+                gen = gender[i].value;
+            }
+        }
+        console.log(uName + " " + email + " " + x);
+        sendDataToServer(uName, email, gen);
 
-        //after data entey to DB :-
     };
 
+
+    function sendDataToServer(name, email, gender) {
+            var user = {
+                name : name,
+                email : email,
+                gender : gender
+            };
+
+            $.ajax({
+                url : 'http://localhost:8080/ChatApp-----',
+                type : 'POST',
+                data : user,
+                success: function (data) {
+                    if(data.result === true){       
+                        //alert("LogIn Successfully");
+                        //window.location = "visitorIndex.html";
+                    }else{
+                        alert("userName or Pasword Incorrect")
+                    }
+                }
+                , error: function (jqXHR, textStatus, err) { 
+                    alert('text status ' + textStatus + ', err ' + err);
+                }
+            });
+
+    }
 
     function  startTimer() {
         var timer = 30;
