@@ -7,26 +7,24 @@ document.getElementById("txtArea").addEventListener("keydown", function (e) {
     e.preventDefault();
     var msg = document.getElementById("txtArea").value;
     addMessageToWindow("self", msg);
+    socket.send(msg);
     document.getElementById("txtArea").value = "";
   }
 });
 
-let i = 0;
 function addMessageToWindow(sender, message) {
-  console.log(i % 2);
-  if (i % 2 == 0) {
-    messageWindow.innerHTML += `<div class="messages sentMessage"><p>${message}</p></div>`;
-  } else {
+  if (sender == "receive") {
     messageWindow.innerHTML += `<div class="messages receivedMessage"><p>${message}</p></div>`;
+  } else {
+    messageWindow.innerHTML += `<div class="messages sentMessage"><p>${message}</p></div>`;
   }
   var msgs = document.getElementById("originalMessageArea");
   msgs.scrollTop = msgs.scrollHeight;
-  i++;
 }
 
+//-----------------------------------------------------Web socket starts here----------------------------------------------------//
+
 var socket = new WebSocket("ws://localhost:8080/Chat-Application/action");
-// var webSocket = ('ws://echo.websocket.org ');
-const messageWindow = document.getElementById("messages");
 
 socket.onerror = function (event) {
   onError(event);
@@ -41,12 +39,7 @@ socket.onmessage = function (event) {
 };
 
 function onMessage(event) {
-    addMessageToWindow(`${event.data}`);
-    
-}
-
-function addMessageToWindow(message) {
-    messageWindow.innerHTML += `<div>${message}</div>`
+  addMessageToWindow("receive", `${event.data}`);
 }
 
 function onOpen(event) {
@@ -55,11 +48,4 @@ function onOpen(event) {
 
 function onError(event) {
   alert("Error");
-}
-
-function send() {
-  var txt = document.getElementById("txtid").value;
-  console.log(txt);
-  socket.send(txt);
-  return false;
 }
