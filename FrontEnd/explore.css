@@ -1,0 +1,15 @@
+.content-body {
+     width: 90%;
+     margin: 0 auto;
+     padding: 20% 3%;
+     text-align: center;
+}
+
+.content-body p{
+     margin: 2% auto;
+}
+
+
+.content-body a{
+     text-decoration: underline;
+}

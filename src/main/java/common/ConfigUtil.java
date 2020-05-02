@@ -1,4 +1,4 @@
-package commen;
+package common;
 
 import model.Gender;
 import model.User;
