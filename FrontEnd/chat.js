@@ -5,12 +5,16 @@ var txt = document.getElementById("txtArea").value;
 document.getElementById("txtArea").addEventListener("keydown", function (e) {
   if (e.keyCode == 13) {
     e.preventDefault();
-    var msg = document.getElementById("txtArea").value;
-    addMessageToWindow("self", msg);
-    socket.send(msg);
-    document.getElementById("txtArea").value = "";
+    sendMesg();
   }
 });
+
+function sendMesg() {
+  var msg = document.getElementById("txtArea").value;
+  addMessageToWindow("self", msg);
+  socket.send(msg);
+  document.getElementById("txtArea").value = "";
+}
 
 function addMessageToWindow(sender, message) {
   if (sender == "receive") {
@@ -48,4 +52,8 @@ function onOpen(event) {
 
 function onError(event) {
   alert("Error");
+}
+
+function sendMessage() {
+  sendMesg();
 }
