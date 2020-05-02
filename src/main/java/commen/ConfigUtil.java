@@ -15,8 +15,8 @@ public class ConfigUtil {
         user.setName("Jeyasingh");
         user.setEmail("jsinghalex@gmail.com");
         user.setGender(Gender.MALE);
-        UserAPIImpl obj = new UserAPIImpl();
-        obj.insertUserInfo(user);
+        //UserAPIImpl obj = new UserAPIImpl();
+//        obj.insertUserInfo(user);
     }
 
     public static Properties loadProperty() {

@@ -7,7 +7,8 @@ public class User {
     private String name;
     private String email;
     private Gender gender;
-
+    
+    
     public String getName() {
         return name;
     }

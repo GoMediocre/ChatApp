@@ -6,19 +6,22 @@ import userAPI.UserAPIImpl;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import model.User;
 
 
-@Path("user")
+@Path("/user")
 public class UserService {
-
-    private static UserAPI impl = new UserAPIImpl();
-    @GET
+	
+	/** Don't forget implement interface */
+	private static UserAPI userApi = UserAPIImpl.getInstance();
+	
+	
+    @POST
     @Path("/data")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public static Response createUserData() {
-       // impl.insertUserInfo(user);
-        System.out.println("Hello World");
-        return null;
+    public Response createUserData(User user) {
+         userApi.insertUserInfo(user);
+        return Response.ok("I am response").build();
     }
 }

@@ -58,11 +58,12 @@ public class WebSocketServer {
       @OnOpen
       public void onOpen (@PathParam("gender") String gender, Session user) {
             // Add user to the connected sessions set
+    	  	System.out.println("I am on open");
             String id = user.getId();
-            user.getUserProperties().put("GENDER", gender);
-            user.getUserProperties().put("STATUS",  "NC");
+//            user.getUserProperties().put("GENDER", gender);
+//            user.getUserProperties().put("STATUS",  "NC");
             users.add(user);
-            searchPair(user);
+//            searchPair(user);
       }
 
       private void searchPair(Session currentUser) {

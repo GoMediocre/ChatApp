@@ -43,18 +43,20 @@ public class dbConnectionImpl implements UserDao {
             PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getEmail());
-            pstmt.setString(3,  user.getGender().toString());
+            pstmt.setString(3,  "MALE");
+//            pstmt.setString(3,  user.getGender().toString());
             pstmt.executeUpdate();
+            System.out.println("data updated");
             rs = pstmt.getGeneratedKeys();
-            int id = 0;
-                if (rs.next())
-             id = rs.getInt(1);
-            System.out.println("----"+id);
-            rs = checkWaitingUser();
-            if (rs == null) {
-                return Response.status(Response.Status.OK).entity("Failed").build();
-            }
-            setConnection(rs);
+//            int id = 0;
+//                if (rs.next())
+//             id = rs.getInt(1);
+//            System.out.println("----"+id);
+//            rs = checkWaitingUser();
+//            if (rs == null) {
+//                return Response.status(Response.Status.OK).entity("Failed").build();
+//            }
+//            setConnection(rs);
             return Response.status(Response.Status.OK).entity("Success").build();
         } catch (SQLException ex) {
             ex.printStackTrace();

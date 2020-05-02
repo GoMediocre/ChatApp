@@ -1,12 +1,27 @@
 package userAPI;
 
+import database.UserDao;
 import database.dbConnectionImpl;
 import model.User;
 
 
 //We add extra details :-
-
+	
 public class UserAPIImpl implements UserAPI {
+
+	private static UserAPIImpl userApiImpl;
+//	private static UserDao userDao = dbConnectionImpl.getInstance();
+	
+	private UserAPIImpl() {
+		
+	}
+	
+	public static UserAPIImpl getInstance() {
+		if (userApiImpl == null) {
+			userApiImpl = new UserAPIImpl();
+		}
+		return userApiImpl;
+	}
 
     @Override
     public void insertUserInfo(User user) {
@@ -27,6 +42,7 @@ public class UserAPIImpl implements UserAPI {
     }
 
     private String encryption(String str) {
+    	System.out.println(str);
         String encryptedStr = "";
         char s = 0;
         for (int i = 0; i < str.length(); ++i) {
