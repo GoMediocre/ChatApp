@@ -1,6 +1,6 @@
 package database;
 
-import commen.ConfigUtil;
+import common.ConfigUtil;
 import model.User;
 
 import javax.ws.rs.core.Response;
