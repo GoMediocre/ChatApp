@@ -1,7 +1,7 @@
 
-    window.onload = function() {
-        this.startTimer();
-    }
+    // window.onload = function() {
+    //     this.startTimer();
+    // }
 
 
     function validateForm() {
@@ -12,26 +12,28 @@
         for (var i = 0; i < gender.length; ++i) {
             if (gender[i].checked){
                 gen = gender[i].value;
+                break;
             }
         }
-        console.log(uName + " " + email + " " + x);
+        console.log(uName + " " + email + " " + gen);
         sendDataToServer(uName, email, gen);
-
     };
 
 
     function sendDataToServer(name, email, gender) {
             var user = {
-                name : name,
-                email : email,
-                gender : gender
+                "name" : name,
+                "email" : email,
+                "gender" : gender
             };
-
+            console.log("I am ajax call")
             $.ajax({
-                url : 'http://localhost:8080/ChatApp-----',
+                url : 'http://localhost:8080/Chat-Application/rest/user/data',
                 type : 'POST',
                 data : user,
+                contentType: "application/json",
                 success: function (data) {
+                    console.log("i am success");
                     if(data.result === true){       
                         //alert("LogIn Successfully");
                         //window.location = "visitorIndex.html";

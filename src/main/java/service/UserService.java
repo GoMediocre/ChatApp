@@ -21,6 +21,7 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUserData(User user) {
+    	System.out.println("I am service");
          userApi.insertUserInfo(user);
         return Response.ok("I am response").build();
     }
