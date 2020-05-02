@@ -1,5 +1,7 @@
 package service;
 
+import org.json.JSONException;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,7 +12,7 @@ public class EndpointTest {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String testEndpoint() {
-        return "Endpoint reachable";
+    public String testEndpoint() throws JSONException {
+        return "Authorized and connection successful";
     }
 }

@@ -24,7 +24,7 @@ public class BasicAuthenticationHelper {
         String username = tokenizer.nextToken();
         String password = tokenizer.nextToken();
 
-        boolean authenticationStatus = "admin".equals(username) && "admin".equals(password);
+        boolean authenticationStatus = "goatrip".equals(username) && "goatrip".equals(password);
         return authenticationStatus;
     }
 }
