@@ -1,90 +1,76 @@
 package server;
 
+import org.json.JSONObject;
+
 import javax.websocket.*;
-import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.*;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ServerEndpoint("/action/{gender}")
+@ServerEndpoint("/action")
 public class WebSocketServer {
+      private static final Map<Integer, Session> clients = new ConcurrentHashMap<>();
+      private static Queue<Integer> waitingQueue = new ArrayDeque<>();
 
-      private static final Set<Session> users = Collections.synchronizedSet(new HashSet<Session>());
-      private static final Map<String, String> map = new HashMap<>();
-
-      /** For reference DB Connection*/
-      //https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/HomeWebsocket/WebsocketHome.html#
-
-      /** Multiple Clint Communication */
-      
       @OnMessage
-      public void onMessage(String message, Session session)
-              throws IOException {
-    	  System.out.println("send message to client");
-            synchronized(users){
-                  // Iterate over the connected sessions
-                  // and broadcast the received message
-                  for(Session client : users){
-                        if (!client.equals(session)){
-                              String id = session.getId();
+      public void onMessage(String message, Session session) throws IOException {
+            JSONObject messageJSON = new JSONObject(message);
+            String room_name = messageJSON.getString("room_name");
+            String users[] = room_name.split("#");
 
-                              client.getBasicRemote().sendText(message);
-                        }
+            for(String user: users) {
+                  int user_id = Integer.parseInt(user);
+                  if(user_id != Integer.parseInt(session.getId())) {
+                        JSONObject peerMessageJSON = new JSONObject();
+                        peerMessageJSON.put("type", "message");
+                        peerMessageJSON.put("message", messageJSON.getString("message"));
+                        clients.get(user_id).getAsyncRemote().sendText(peerMessageJSON.toString());
                   }
             }
       }
 
-      /** Single Client Only */
-//      @OnMessage
-//      public void onMessage(Session user,
-//                            String message) {
-//            if(message.trim().isEmpty())
-//                  return;
-//            try {
-//                  user.getBasicRemote().sendText
-//                          ("Received message "+count+": " + message);
-//                  user.getBasicRemote().sendText
-//                          ("Lucky number! "+new Random().nextInt(99));
-//                  user.getBasicRemote().sendText
-//                          ("-----------------------------------");
-//            } catch (IOException ex) {
-//
-//            }
-//            count++;
-//      }
-
       @OnOpen
-      public void onOpen (@PathParam("gender") String gender, Session user) {
-            // Add user to the connected sessions set
-    	  //ws://host/contextPath/websocket/[clientId].
-    	  	System.out.println("I am on open");
-    	  	System.out.println(gender);
-            String id = user.getId();
-//            user.getUserProperties().put("GENDER", gender);
-//            user.getUserProperties().put("STATUS",  "NC");
-            users.add(user);
-//            searchPair(user);
+      public void onOpen (Session session) {
+            Integer sessionID = Integer.parseInt(session.getId());
+            clients.put(sessionID, session);
+            connectUsers(sessionID);
       }
 
-      private void searchPair(Session currentUser) {
-
-            String currentUserGender = (String) currentUser.getUserProperties().get("GENDER");
-            String currentUserStatus = (String) currentUser.getUserProperties().get("STATUS");
-            for (Session user : users) {
-                  String gender = (String) user.getUserProperties().get("GENDER");
-                  String status = (String) user.getUserProperties().get("STATUS");
-                  if (!currentUserGender.equals(gender) && currentUserStatus.equals(status)) {
-                        //hear we find  two user :
-                  }
+      private void connectUsers(int sessionID) {
+            JSONObject responseJSON = new JSONObject();
+            if(!waitingQueue.isEmpty()) {
+                  Integer waitingMember = waitingQueue.poll();
+                  String roomName = sessionID + "#" + waitingMember;
+                  responseJSON.put("type", "connection_status");
+                  responseJSON.put("room_name", roomName);
+                  responseJSON.put("connection_status", 200);
+                  clients.get(sessionID).getAsyncRemote().sendText(responseJSON.toString());
+                  clients.get(waitingMember).getAsyncRemote().sendText(responseJSON.toString());
+            } else {
+                  waitingQueue.add(sessionID);
+                  responseJSON.put("type", "connection_status");
+                  responseJSON.put("connection_status", 203);
+                  clients.get(sessionID).getAsyncRemote().sendText(responseJSON.toString());
             }
       }
 
       @OnClose
       public void onClose (Session session) {
-            // Remove session from the connected sessions set
-            users.remove(session);
+            clients.remove(session);
+            waitingQueue.remove(session.getId());
       }
 
       @OnError
