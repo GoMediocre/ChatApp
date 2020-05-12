@@ -48,6 +48,9 @@ public class dbConnectionImpl implements UserDao {
             pstmt.executeUpdate();
             System.out.println("data updated");
             rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+            	System.out.println(rs.getInt(1));
+            }
 //            int id = 0;
 //                if (rs.next())
 //             id = rs.getInt(1);

@@ -9,13 +9,14 @@
         <servlet-name>ChatAppServlet</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
-            <param-name>com.sun.jersey.config.property.resourceConfigClass</param-name>
-            <param-value>com.sun.jersey.api.core.PackagesResourceConfig</param-value>
-        </init-param>
-        <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
             <param-value>service</param-value>
+            <!-- org.codehaus.jackson.jaxrs -->
         </init-param>
+         <init-param>
+	        <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+	        <param-value>true</param-value>
+  		 </init-param> 
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -25,7 +26,7 @@
     </servlet-mapping>
 
 
-	<filter>
+ 	<filter>
 	  <filter-name>CorsFilter</filter-name>
 	  <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
 	  <init-param>

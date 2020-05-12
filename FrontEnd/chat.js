@@ -24,13 +24,13 @@ function addMessageToWindow(sender, message) {
 
 //-----------------------------------------------------Web socket starts here----------------------------------------------------//
 
-var socket = new WebSocket("ws://localhost:8080/Chat-Application/action");
+var socket = new WebSocket("ws://localhost:8080/Chat-Application/action/male");
 
 socket.onerror = function (event) {
   onError(event);
 };
 
-socket.onopen = function (event) {
+socket.onopen = function (gender, event) {
   onOpen(event);
 };
 

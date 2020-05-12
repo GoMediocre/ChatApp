@@ -11,10 +11,10 @@ import java.util.Properties;
 public class ConfigUtil {
 
     public static void main(String[] args) {
-        User user = new User();
-        user.setName("Jeyasingh");
-        user.setEmail("jsinghalex@gmail.com");
-        user.setGender(Gender.MALE);
+//        User user = new User();
+//        user.setName("Jeyasingh");
+//        user.setEmail("jsinghalex@gmail.com");
+//        user.setGender(Gender.MALE);
         //UserAPIImpl obj = new UserAPIImpl();
 //        obj.insertUserInfo(user);
     }

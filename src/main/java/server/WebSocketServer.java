@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@ServerEndpoint("/action")
+@ServerEndpoint("/action/{gender}")
 public class WebSocketServer {
 
       private static final Set<Session> users = Collections.synchronizedSet(new HashSet<Session>());
@@ -22,7 +22,7 @@ public class WebSocketServer {
       @OnMessage
       public void onMessage(String message, Session session)
               throws IOException {
-    	  System.out.println("Hellow World");
+    	  System.out.println("send message to client");
             synchronized(users){
                   // Iterate over the connected sessions
                   // and broadcast the received message
@@ -58,7 +58,9 @@ public class WebSocketServer {
       @OnOpen
       public void onOpen (@PathParam("gender") String gender, Session user) {
             // Add user to the connected sessions set
+    	  //ws://host/contextPath/websocket/[clientId].
     	  	System.out.println("I am on open");
+    	  	System.out.println(gender);
             String id = user.getId();
 //            user.getUserProperties().put("GENDER", gender);
 //            user.getUserProperties().put("STATUS",  "NC");
