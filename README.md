@@ -1,6 +1,6 @@
 # ChatApp
 
-The idea is to give the people around the globe, an opportunity to randomly have conversations with each other.
+The idea is to give the people around the globe, an opportunity to anonymously and randomly have conversations with each other.
 
 ## Technologies used:
 
