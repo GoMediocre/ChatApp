@@ -11,7 +11,7 @@ chatInputForm.addEventListener('submit', (e) => {
     sendMessage();
 });
 
-function sendMessage(data) {
+function sendMessage() {
     const dataToServer = {
         name: chatNameInput.value,
         message: chatInputMessage.value
