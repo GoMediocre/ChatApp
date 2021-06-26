@@ -17,7 +17,7 @@ const clientMap = new Map();
 const io = new Server(server);
 
 io.on('connection', (socket) => {
-    checkAndQueueClient((isExists) => {
+    isClientExists((isExists) => {
         if (isExists) {
             mapClients(socket.id);
         } else {
@@ -31,14 +31,14 @@ io.on('connection', (socket) => {
     })
 
     socket.on('disconnect', (socket) => {
-        clientMap.delete(socket);
         const connectedWith = clientMap[socket];
+        clientMap.delete(socket);
         clientMap.delete(connectedWith);
         io.sockets[connectedWith].emit("connectedStatus", false);
     })
 })
 
-function checkAndQueueClient(cb) {
+function isClientExists(cb) {
     client.scard('clients', (err, len) => {
         console.log("Length:" + len);
         if (err) {
@@ -50,16 +50,18 @@ function checkAndQueueClient(cb) {
 }
 
 function mapClients(socketId) {
-    client.spop('clients', (err, client) => {
-        console.log("Popped " + client);
+    client.spop('clients', (err, connectTo) => {
+        console.log("Popped " + connectTo);
         if (err) {
             console.log(err);
             queueClient(socketId);
             return;
         }
-        clientMap[socketId] = client;
-        clientMap[client] = socketId;
-        return client;
+        clientMap[socketId] = connectTo;
+        clientMap[connectTo] = socketId;
+        io.sockets[connectTo].emit('connectedStatus', true);
+        io.sockets[socketId].emit('connectedStatus', true);
+        return connectTo;
     })
 }
 
