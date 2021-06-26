@@ -4,6 +4,7 @@ const chatNameInput = document.getElementById('chat-name');
 var chatMessagesList = document.getElementById('chat-messages-list');
 const chatInputForm = document.getElementById('chat-input-form');
 const chatInputMessage = document.getElementById('chat-input-message');
+const connected = document.getElementById('connected-status');
 
 chatInputForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -33,3 +34,14 @@ function addMessageToUI(isOwn, data) {
     chatMessagesList.innerHTML += li;
     chatMessagesList.scrollIntoView(false);
 }
+
+socket.on('connectedStatus', (isConnected) => {
+    console.log("isConnected"  + isConnected);
+    if (isConnected) {
+        connected.innerText = "Connected";
+        chatInputMessage.disabled = false;
+    } else {
+        connected.innerText = "Connecting...";
+        chatInputMessage.disabled = true;
+    }
+})

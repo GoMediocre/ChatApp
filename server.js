@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
         const connectedWith = clientMap[socket];
         clientMap.delete(socket);
         clientMap.delete(connectedWith);
-        io.sockets[connectedWith].emit("connectedStatus", false);
+        io.to(connectedWith).emit("connectedStatus", false);
     })
 })
 
@@ -59,8 +59,8 @@ function mapClients(socketId) {
         }
         clientMap[socketId] = connectTo;
         clientMap[connectTo] = socketId;
-        io.sockets[connectTo].emit('connectedStatus', true);
-        io.sockets[socketId].emit('connectedStatus', true);
+        io.to(connectTo).emit('connectedStatus', true);
+        io.to(socketId).emit('connectedStatus', true);
         return connectTo;
     })
 }
@@ -69,5 +69,6 @@ function queueClient(socketId) {
     client.sadd('clients', socketId, (err, reply) => {
         if (err) console.log(err);
         console.log("Pushed " + reply);
+        io.to(socketId).emit('connectedStatus', false);
     })
 }
