@@ -7,9 +7,8 @@ const chatInputMessage = document.getElementById('chat-input-message');
 
 chatInputForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (chatInputMessage !== '') {
-        sendMessage();
-    }
+    if (chatInputMessage.value === '') return;
+    sendMessage();
 });
 
 function sendMessage(data) {
@@ -32,4 +31,5 @@ function addMessageToUI(isOwn, data) {
                 <p class="message">${data.message}</p>
                 </li>`;
     chatMessagesList.innerHTML += li;
+    chatMessagesList.scrollIntoView(false);
 }
