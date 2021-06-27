@@ -30,8 +30,9 @@ io.on('connection', (socket) => {
         socket.to(connectedWith).emit("message", data);
     })
 
-    socket.on('disconnect', (socket) => {
-        const connectedWith = clientMap[socket];
+    socket.on('disconnect', () => {
+        const connectedWith = clientMap[socket.id];
+        console.log("Socket Id: " + socket.id + " is connected with" + connectedWith);
         clientMap.delete(socket);
         clientMap.delete(connectedWith);
         io.to(connectedWith).emit("connectedStatus", false);
