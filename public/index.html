@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat App</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main-container">
+            <div class="chat-top">
+                <div class="chat-top-details">
+                    <input type="text" value="Anonymous" id="chat-name" class="chat-name" maxlength="20">
+                    <p class="connected-status" id="connected-status">Connected</p>
+                </div>
+                <button id="theme-mode-button" class="theme-icon"></button>
+            </div>
+            <div class="chat-messages">
+                <ul id="chat-messages-list">
+                </ul>
+            </div>
+            <div class="chat-input">
+                <form class="chat-input-form" id="chat-input-form">
+                    <textarea id="chat-input-message" class="chat-input-message"></textarea>
+                    <input type="submit" id="chat-input-submit" class="chat-input-submit" value="Send">
+                </form>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="ui.js"></script>
+        <script src="client.js"></script>
+    </body>
+</html>
